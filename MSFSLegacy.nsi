@@ -24,6 +24,9 @@
   ;Request application privileges for Windows Vista
   RequestExecutionLevel user
 
+  Var WinDate
+
+
 ;--------------------------------
 ;Interface Settings
 
@@ -44,6 +47,8 @@ Var fsxDir
 !define MUI_DIRECTORYPAGE_VARIABLE $fsxDir
 function .onInit
 ReadRegStr $fsxDir HKCU "Software\Microsoft\Microsoft Games\Flight Simulator\10.0\" "AppPath"
+SetRegView 64
+ReadRegStr $WinDate HKLM "Software\Microsoft\Windows NT\CurrentVersion\" "InstallDate"
 functionend
 
 !define MUI_PAGE_HEADER_TEXT "Source directory"
@@ -88,7 +93,7 @@ System::Call "advapi32::GetUserName(t .r0, *i ${NSIS_MAX_STRLEN} r1) i.r2"
 Pop $0
 !define USERNAME $0
 ClearErrors
-Crypto::HashData "SHA1" ${USERNAME}
+Crypto::HashData "SHA1" ${USERNAME}$WinDate
 Pop $0
 !define UNIQUE_ID $0
 

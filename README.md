@@ -12,7 +12,7 @@ Requirements:
 
 You can generate JSON files for your airplane in "planeconverter" (available on github).
 
-Reauired config values you need to change in case of FSX:
+Required config values you need to change in case of FSX:
 
   AIRPLANEID "ms-aircreation-582sl" ; aircraft directory name in FS2020
 
