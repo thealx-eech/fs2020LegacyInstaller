@@ -22,7 +22,7 @@
 
   InstallDir ""
   ;Request application privileges for Windows Vista
-  RequestExecutionLevel user
+  RequestExecutionLevel admin
 
   Var WinDate
 
@@ -44,11 +44,23 @@ DirText "" "" "Browse" ""
 
 ;FSX PAGE
 Var fsxDir
+Var msfsDir
+
 !define MUI_DIRECTORYPAGE_VARIABLE $fsxDir
+
 function .onInit
-ReadRegStr $fsxDir HKCU "Software\Microsoft\Microsoft Games\Flight Simulator\10.0\" "AppPath"
-SetRegView 64
-ReadRegStr $WinDate HKLM "Software\Microsoft\Windows NT\CurrentVersion\" "InstallDate"
+
+	SetRegView 32
+	ReadRegStr $fsxDir HKLM "Software\Microsoft\Microsoft Games\Flight Simulator\10.0\" "AppPath"
+	${If} ${Errors}
+		ReadRegStr $fsxDir HKLM "SOFTWARE\Microsoft\microsoft games\Flight Simulator\10.0\" "SetupPath"
+	${EndIf}
+
+	SetRegView 64
+	ReadRegStr $WinDate HKLM "Software\Microsoft\Windows NT\CurrentVersion\" "InstallDate"
+
+	ReadRegStr $msfsDir HKLM "Software\Microsoft\Microsoft Games\Flight Simulator\11.0\" "CommunityPath"
+	
 functionend
 
 !define MUI_PAGE_HEADER_TEXT "Source directory"
@@ -60,14 +72,15 @@ functionend
 !insertmacro MUI_PAGE_DIRECTORY
 
 Function SourceDirLeave
-IfFileExists "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*.*" +3 0
-MessageBox MB_ICONEXCLAMATION \
-"Folder $fsxDirSimObjects\Airplanes\${FSXAIRPLANEID}\ does not exists. You can't install this add-on without Microsoft Flight Simulator X files."
-Abort
+
+	IfFileExists "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*.*" +3 0
+	MessageBox MB_ICONEXCLAMATION \
+	"Folder $fsxDirSimObjects\Airplanes\${FSXAIRPLANEID}\ does not exists. You can't install this add-on without Microsoft Flight Simulator X files."
+	Abort
+
 FunctionEnd
 
 ;MSFS PAGE
-var msfsDir
 !define MUI_DIRECTORYPAGE_VARIABLE $msfsDir
 
 !define MUI_PAGE_HEADER_TEXT "Destination directory"
@@ -75,7 +88,15 @@ var msfsDir
 !define MUI_DIRECTORYPAGE_TEXT_TOP "Please set HLM_Packages > Community folder path of Microsoft Flight Simulator 2020 where add-on will be installed"
 !define MUI_DIRECTORYPAGE_TEXT_DESTINATION "Select Microsoft Flight Simulator 2020 HLM_Packages > Community folder"
 
+!define MUI_PAGE_CUSTOMFUNCTION_LEAVE "DestinationDirLeave"
 !insertmacro MUI_PAGE_DIRECTORY
+  
+Function DestinationDirLeave
+
+	SetRegView 64
+	WriteRegStr HKLM "SOFTWARE\Microsoft\microsoft games\Flight Simulator\11.0\" "CommunityPath" $msfsDir
+
+FunctionEnd
   
 ;--------------------------------
 ;Languages
