@@ -8,6 +8,11 @@ Requirements:
   NSIS 3.0 or newer
   
   Crypto plugin for NSIS
+
+  ReplaceInFile plugin for NSIS
+
+  StrRep plugin for NSIS
+  
   
 
 You can generate JSON files for your airplane in "planeconverter" (available on github).

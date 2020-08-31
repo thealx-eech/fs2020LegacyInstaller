@@ -1,11 +1,15 @@
 ;NSIS Modern User Interface
 
+  Unicode True
+
 ;--------------------------------
 ;Include Modern UI
   !include "MUI2.nsh"
 ;HASH plugin to make unique folder name
   !include "LogicLib.nsh"
-;--------------------------------
+  !include "StrRep.nsh"
+  !include "ReplaceInFile.nsh"
+  ;--------------------------------
 ;General
 	
   !define AIRPLANEID "ms-aircreation-582sl"
@@ -15,7 +19,6 @@
   !define SHDDIR "${BLDDIR}setup"
 
   ;Name and file
-  Unicode True
   Name "Legacy MSFS2020 Air Creation 582SL ver${VERSION}"
   OutFile "MSFS2020 ${FSXAIRPLANEID}_${VERSION}.exe"
   SetCompressor lzma
@@ -118,10 +121,19 @@ Crypto::HashData "SHA1" ${USERNAME}$WinDate
 Pop $0
 !define UNIQUE_ID $0
 
-CopyFiles "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*" "$msfsDir\${AIRPLANEID}_${UNIQUE_ID}\SimObjects\Airplanes\${FSXAIRPLANEID}"
+CopyFiles "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*" "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}"
 
-SetOutPath "$msfsDir\${AIRPLANEID}_${UNIQUE_ID}\"
-File /r "${SHDDIR}\"
+SetOutPath "$msfsDir\${AIRPLANEID}\"
+File "${SHDDIR}\layout.json"
+File "${SHDDIR}\manifest.json"
+
+!insertmacro _ReplaceInFile "$msfsDir\${AIRPLANEID}\layout.json" "/${FSXAIRPLANEID}/" "/${FSXAIRPLANEID}_${UNIQUE_ID}/"
+!insertmacro _ReplaceInFile "$msfsDir\${AIRPLANEID}\manifest.json" "/${FSXAIRPLANEID}/" "/${FSXAIRPLANEID}_${UNIQUE_ID}/"
+
+SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}\"
+File /r "${SHDDIR}\SimObjects\Airplanes\${FSXAIRPLANEID}\"
+
+
 
 SectionEnd
 
