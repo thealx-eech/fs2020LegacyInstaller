@@ -1,0 +1,18 @@
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Release\msfsJSONgen.exe.config
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Release\msfsJSONgen.exe
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Release\msfsJSONgen.pdb
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Release\Newtonsoft.Json.xml
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csproj.CoreCompileInputs.cache
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csproj.CopyComplete
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.exe
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.pdb
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csproj.Fody.CopyLocal.cache
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\bin\Release\msfsJSONgen.exe.config
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\bin\Release\msfsJSONgen.exe
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\bin\Release\msfsJSONgen.pdb
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\bin\Release\Newtonsoft.Json.xml
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csproj.CoreCompileInputs.cache
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csproj.Fody.CopyLocal.cache
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csproj.CopyComplete
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.exe
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.pdb

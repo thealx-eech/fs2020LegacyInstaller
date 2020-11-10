@@ -1,0 +1,10 @@
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Debug\msfsJSONgen.csprojAssemblyReference.cache
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Debug\msfsJSONgen.csproj.CoreCompileInputs.cache
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Debug\msfsJSONgen.exe.config
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Debug\msfsJSONgen.exe
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Debug\msfsJSONgen.pdb
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Debug\Newtonsoft.Json.dll
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\bin\Debug\Newtonsoft.Json.xml
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Debug\msfsJSONgen.csproj.CopyComplete
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Debug\msfsJSONgen.exe
+J:\MSFS2020\fs2020JSONgen\msfsJSONgen\msfsJSONgen\obj\Debug\msfsJSONgen.pdb

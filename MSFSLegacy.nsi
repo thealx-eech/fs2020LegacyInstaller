@@ -14,9 +14,9 @@
 	
   !define AIRPLANEID "ms-aircreation-582sl"
   !define FSXAIRPLANEID "Aircreation_582SL"
-  !define VERSION "0.1"
-  !define BLDDIR "J:\MSFS2020\MSFS MODS\MSFSLegacy\"
-  !define SHDDIR "${BLDDIR}setup"
+  !define VERSION "0.2.0"
+  !define BLDDIR "J:\MSFS2020\MSFS MODS\Aircreation_582SL\"
+  !define SHDDIR "${BLDDIR}aircraft"
 
   ;Name and file
   Name "Legacy MSFS2020 Air Creation 582SL ver${VERSION}"
@@ -66,6 +66,9 @@ function .onInit
 	
 functionend
 
+!define MUI_COMPONENTSPAGE_TEXT_TOP "Check/Uncheck what aircraft components you want to install."
+!insertmacro MUI_PAGE_COMPONENTS
+
 !define MUI_PAGE_HEADER_TEXT "Source directory"
 !define MUI_PAGE_HEADER_SUBTEXT ""
 !define MUI_DIRECTORYPAGE_TEXT_TOP "This Legacy MSFS2020 add-on require Microsoft Flight Simulator X to be installed. Please select FSX installation path if it was not read from registry correctly"
@@ -96,8 +99,8 @@ FunctionEnd
   
 Function DestinationDirLeave
 
-	SetRegView 64
-	WriteRegStr HKLM "SOFTWARE\Microsoft\microsoft games\Flight Simulator\11.0\" "CommunityPath" $msfsDir
+;	SetRegView 64
+;	WriteRegStr HKLM "SOFTWARE\Microsoft\microsoft games\Flight Simulator\11.0\" "CommunityPath" $msfsDir
 
 FunctionEnd
   
@@ -112,28 +115,42 @@ FunctionEnd
 Page instfiles
 
 Section ""
-;HASH USERNAME TO MAKE "UNIQUE" DIR RNAME
-System::Call "advapi32::GetUserName(t .r0, *i ${NSIS_MAX_STRLEN} r1) i.r2"
-Pop $0
-!define USERNAME $0
-ClearErrors
-Crypto::HashData "SHA1" ${USERNAME}$WinDate
-Pop $0
-!define UNIQUE_ID $0
+	;HASH USERNAME TO MAKE "UNIQUE" DIR NAME
+	System::Call "advapi32::GetUserName(t .r0, *i ${NSIS_MAX_STRLEN} r1) i.r2"
+	Pop $0
+	!define USERNAME $0
+	ClearErrors
+	Crypto::HashData "SHA1" ${USERNAME}$WinDate
+	Pop $0
+	!define UNIQUE_ID $0
 
-CopyFiles "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*" "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}"
+SectionEnd
 
-SetOutPath "$msfsDir\${AIRPLANEID}\"
-File "${SHDDIR}\layout.json"
-File "${SHDDIR}\manifest.json"
+Section "Aircraft" sectionAircraft
 
-!insertmacro _ReplaceInFile "$msfsDir\${AIRPLANEID}\layout.json" "/${FSXAIRPLANEID}/" "/${FSXAIRPLANEID}_${UNIQUE_ID}/"
-!insertmacro _ReplaceInFile "$msfsDir\${AIRPLANEID}\manifest.json" "/${FSXAIRPLANEID}/" "/${FSXAIRPLANEID}_${UNIQUE_ID}/"
+	CopyFiles "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*" "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}"
 
-SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}\"
-File /r "${SHDDIR}\SimObjects\Airplanes\${FSXAIRPLANEID}\"
+	SetOutPath "$msfsDir\${AIRPLANEID}\"
+	File "${SHDDIR}\manifest.json"
 
+	!insertmacro _ReplaceInFile "$msfsDir\${AIRPLANEID}\manifest.json" "/${FSXAIRPLANEID}/" "/${FSXAIRPLANEID}_${UNIQUE_ID}/"
+	SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}\"
+	File /r "${SHDDIR}\SimObjects\Airplanes\${FSXAIRPLANEID}\"
 
+	SetOutPath "$msfsDir\"
+	File "${BLDDIR}\JSONgen\msfsJSONgen.exe"
+	Exec '"$msfsDir\msfsJSONgen.exe" "$msfsDir\${AIRPLANEID}"'
+
+SectionEnd
+
+Section "Gauges" sectionGauges
+
+	SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}\panel\"
+	File "${SHDDIR}\SimObjects\Airplanes\${FSXAIRPLANEID}\panel\panel.cfg"
+
+	SetOutPath "$msfsDir\"
+	File /r "${BLDDIR}\gauges\"
+	Exec '"$msfsDir\msfsJSONgen.exe" "$msfsDir\legacy-vcockpits-instruments"'
 
 SectionEnd
 
@@ -141,11 +158,13 @@ SectionEnd
 ;Descriptions
 
   ;Language strings
-  ;LangString DESC_SecDummy ${LANG_ENGLISH} "Install FSX Legacy aircraft"
+  LangString DESC_sectionAircraft ${LANG_ENGLISH} "Install FSX Legacy aircraft"
+  LangString DESC_sectionGauges ${LANG_ENGLISH} "Install gauges for this aircraft (into legacy-vcockpits-instruments)"
 
   ;Assign language strings to sections
-  ;!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    ;!insertmacro MUI_DESCRIPTION_TEXT ${SecDummy} $(DESC_SecDummy)
-  ;!insertmacro MUI_FUNCTION_DESCRIPTION_END
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${sectionAircraft} $(DESC_sectionAircraft)
+    !insertmacro MUI_DESCRIPTION_TEXT ${sectionGauges} $(DESC_sectionGauges)
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
