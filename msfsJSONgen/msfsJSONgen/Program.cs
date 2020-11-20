@@ -17,8 +17,6 @@ namespace msfsJSONgen
         {
             string TargetFolder = "";
 
-            //string TargetFolder = AppDomain.CurrentDomain.BaseDirectory + "\\";
-
             if (args.Length > 0)
             {
                 if (Directory.Exists(args[0]))
@@ -33,9 +31,16 @@ namespace msfsJSONgen
 
             if (string.IsNullOrEmpty(TargetFolder))
             {
-                Console.WriteLine("Target folder not set, pass it as argument");
-                Thread.Sleep(3000);
-                return;
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\legacy-vcockpits-instruments"))
+                {
+                    TargetFolder = AppDomain.CurrentDomain.BaseDirectory + "\\legacy-vcockpits-instruments\\";
+                }
+                else
+                {
+                    Console.WriteLine("Target folder not set, pass it as argument, or place EXE near to folder 'legacy-vcockpits-instruments'");
+                    Thread.Sleep(3000);
+                    return;
+                }
             }
 
             string json = "";
@@ -59,7 +64,7 @@ namespace msfsJSONgen
 
             if (TargetFolder != "")
             {
-                Content[] array = new Content[10000];
+                Content[] array = new Content[10000000];
 
                 // ADD MANIFEST AT THE TOP
 

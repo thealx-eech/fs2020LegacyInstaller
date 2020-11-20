@@ -27,8 +27,6 @@
   ;Request application privileges for Windows Vista
   RequestExecutionLevel admin
 
-  Var WinDate
-
 
 ;--------------------------------
 ;Interface Settings
@@ -60,8 +58,6 @@ function .onInit
 	${EndIf}
 
 	SetRegView 64
-	ReadRegStr $WinDate HKLM "Software\Microsoft\Windows NT\CurrentVersion\" "InstallDate"
-
 	ReadRegStr $msfsDir HKLM "Software\Microsoft\Microsoft Games\Flight Simulator\11.0\" "CommunityPath"
 	
 functionend
@@ -114,27 +110,15 @@ FunctionEnd
 
 Page instfiles
 
-Section ""
-	;HASH USERNAME TO MAKE "UNIQUE" DIR NAME
-	System::Call "advapi32::GetUserName(t .r0, *i ${NSIS_MAX_STRLEN} r1) i.r2"
-	Pop $0
-	!define USERNAME $0
-	ClearErrors
-	Crypto::HashData "SHA1" ${USERNAME}$WinDate
-	Pop $0
-	!define UNIQUE_ID $0
-
-SectionEnd
-
 Section "Aircraft" sectionAircraft
 
-	CopyFiles "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*" "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}"
+	CopyFiles "$fsxDir\SimObjects\Airplanes\${FSXAIRPLANEID}\*" "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}"
 
 	SetOutPath "$msfsDir\${AIRPLANEID}\"
 	File "${SHDDIR}\manifest.json"
 
-	!insertmacro _ReplaceInFile "$msfsDir\${AIRPLANEID}\manifest.json" "/${FSXAIRPLANEID}/" "/${FSXAIRPLANEID}_${UNIQUE_ID}/"
-	SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}\"
+	!insertmacro _ReplaceInFile "$msfsDir\${AIRPLANEID}\manifest.json" "/${FSXAIRPLANEID}/" "/${FSXAIRPLANEID}/"
+	SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}\"
 	File /r "${SHDDIR}\SimObjects\Airplanes\${FSXAIRPLANEID}\"
 
 	SetOutPath "$msfsDir\"
@@ -145,7 +129,7 @@ SectionEnd
 
 Section "Gauges" sectionGauges
 
-	SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}_${UNIQUE_ID}\panel\"
+	SetOutPath "$msfsDir\${AIRPLANEID}\SimObjects\Airplanes\${FSXAIRPLANEID}\panel\"
 	File "${SHDDIR}\SimObjects\Airplanes\${FSXAIRPLANEID}\panel\panel.cfg"
 
 	SetOutPath "$msfsDir\"

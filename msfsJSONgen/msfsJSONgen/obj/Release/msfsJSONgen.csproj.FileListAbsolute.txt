@@ -16,3 +16,4 @@ J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\
 J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csproj.CopyComplete
 J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.exe
 J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.pdb
+J:\MSFS2020\MSFS MODS\fs2020LegacyInstaller\msfsJSONgen\msfsJSONgen\obj\Release\msfsJSONgen.csprojAssemblyReference.cache
